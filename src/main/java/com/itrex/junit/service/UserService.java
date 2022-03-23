@@ -2,8 +2,10 @@ package com.itrex.junit.service;
 
 import com.itrex.junit.dto.User;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
+
+import static java.util.stream.Collectors.toMap;
 
 public class UserService {
 
@@ -13,7 +15,26 @@ public class UserService {
         return users;
     }
 
-    public boolean add(User user) {
-        return users.add(user);
+    public void add(User...users) {
+        this.users.addAll(Arrays.asList(users));
+    }
+
+    public Optional<User> login(String username, String password) {
+        if(username == null || password == null){
+            throw new IllegalArgumentException("username or password is null");
+        }
+
+        return users.stream()
+                .filter(user -> user.getUsername().equals(username))
+                .filter(user -> user.getPassword().equals(password))
+                .findFirst();
+    }
+
+    public Map<Integer, User> getAllConvertedById() {
+//        Map<Integer, User> userMap = new HashMap<>();
+//        users.forEach(user -> userMap.put(user.getId(),user));
+//        return userMap;
+        return users.stream().collect(toMap(User::getId, t->t));
+        //Function.identity() == t->t
     }
 }

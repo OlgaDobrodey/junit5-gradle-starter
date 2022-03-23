@@ -4,14 +4,14 @@ import com.itrex.junit.dto.User;
 import org.junit.jupiter.api.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
-@TestInstance(TestInstance.Lifecycle.PER_METHOD)
-//@TestInstance(TestInstance.Lifecycle.PER_CLASS) -> beforeAll not static
-public class UserServiceTest {
-
+//AssertJ
+public class UserServiceAssertJTest {
     private static final User IVAN = User.of(1, "Ivan", "123");
     private static final User PETR = User.of(2, "Petr", "111");
 
@@ -38,18 +38,8 @@ public class UserServiceTest {
         System.out.println("Test1: " + this);
 
         List<User> all = service.getAll();
-        assertTrue(all.isEmpty());
-    }
-
-    @Test
-    void users_empty_if_no_user_added() {
-        System.out.println("Test1.1: " + this);
-        List<User> all = service.getAll();
-        assertTrue(all.isEmpty(), "ERROR"); //message if ERROR
-        assertAll("Assert All",
-                () -> assertTrue(true),
-                () -> assertFalse(false)
-        );
+        assertThat(all).isEmpty();
+//        assertTrue(all.isEmpty());
     }
 
     @Test
@@ -60,7 +50,8 @@ public class UserServiceTest {
         service.add(PETR);
 
         List<User> all = service.getAll();
-        assertEquals(2, all.size());
+        assertThat(all).hasSize(2);
+//        assertEquals(2, all.size());
     }
 
     @Test
@@ -68,8 +59,10 @@ public class UserServiceTest {
         service.add(IVAN);
         Optional<User> userIfPresent = service.login(IVAN.getUsername(), IVAN.getPassword());
 
-        assertTrue(userIfPresent.isPresent());
-        userIfPresent.ifPresent(user -> assertEquals(IVAN, user));
+        assertThat(userIfPresent).isPresent();
+        userIfPresent.ifPresent(user -> assertThat(user).isEqualTo(IVAN));
+//        assertTrue(userIfPresent.isPresent());
+//        userIfPresent.ifPresent(user -> assertEquals(IVAN, user));
     }
 
     @Test
@@ -77,7 +70,8 @@ public class UserServiceTest {
         service.add(IVAN);
         Optional<User> userIfPresent = service.login(IVAN.getUsername(), "124");
 
-        assertFalse(userIfPresent.isPresent());
+        assert (userIfPresent).isEmpty();
+//        assertFalse(userIfPresent.isPresent());
     }
 
     @Test
@@ -85,12 +79,26 @@ public class UserServiceTest {
         service.add(IVAN);
         Optional<User> userIfPresent = service.login("IVAN.getUsername()", IVAN.getPassword());
 
-        assertTrue(userIfPresent.isEmpty());
+        assertThat(userIfPresent).isEmpty();
+//        assertTrue(userIfPresent.isEmpty());
+    }
+
+    @Test
+    void testMapUsersConvertedTOMApBYId() {
+        service.add(IVAN, PETR);
+
+        Map<Integer, User> userMap = service.getAllConvertedById();
+        userMap.forEach((k, u) -> System.out.println(k + " " + u));
+
+        assertAll(
+                () -> assertThat(userMap).hasSize(2),
+                () -> assertThat(userMap).containsKeys(IVAN.getId(), PETR.getId()),
+                () -> assertThat(userMap).containsValues(IVAN, PETR)
+        );
     }
 
     @AfterEach
     void deleteData() {
         System.out.println("After each: " + this);
     }
-
 }
