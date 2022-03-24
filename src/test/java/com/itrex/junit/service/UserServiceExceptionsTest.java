@@ -2,11 +2,12 @@ package com.itrex.junit.service;
 
 import com.itrex.junit.dto.User;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class UserServiceExceptions {
+public class UserServiceExceptionsTest {
 
     private static final User IVAN = User.of(1, "Ivan", "123");
     private static final User PETR = User.of(2, "Petr", "111");
@@ -34,6 +35,7 @@ public class UserServiceExceptions {
     }
 
     @Test
+    @Tag("login")
     void throwExceptionIfUsernameOrPasswordIsNull_second() {
         assertAll(
                 () -> {

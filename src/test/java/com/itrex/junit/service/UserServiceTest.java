@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+//@Tag("fast")
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 //@TestInstance(TestInstance.Lifecycle.PER_CLASS) -> beforeAll not static
 public class UserServiceTest {
@@ -64,6 +65,7 @@ public class UserServiceTest {
     }
 
     @Test
+    @Tag("login")//https://www.baeldung.com/junit-filtering-tests
     void loginSuccessIfUserExist() {
         service.add(IVAN);
         Optional<User> userIfPresent = service.login(IVAN.getUsername(), IVAN.getPassword());
@@ -73,6 +75,7 @@ public class UserServiceTest {
     }
 
     @Test
+    @Tag("login") // start from command line
     void loginFailIfPasswordIsNotCorrect() {
         service.add(IVAN);
         Optional<User> userIfPresent = service.login(IVAN.getUsername(), "124");
