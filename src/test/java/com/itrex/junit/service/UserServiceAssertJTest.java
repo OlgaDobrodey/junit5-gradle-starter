@@ -11,6 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 //AssertJ
+//@TestMethodOrder(MethodOrderer.DisplayName.class) -not good practic
 public class UserServiceAssertJTest {
     private static final User IVAN = User.of(1, "Ivan", "123");
     private static final User PETR = User.of(2, "Petr", "111");
@@ -34,6 +35,7 @@ public class UserServiceAssertJTest {
     }
 
     @Test
+    @Order(2)
     void usersEmptyIfNoUserAdded() {
         System.out.println("Test1: " + this);
 
@@ -43,6 +45,7 @@ public class UserServiceAssertJTest {
     }
 
     @Test
+    @Order(1)
     void userSizeIfUserAdded() {
         System.out.println("Test2: " + this);
 

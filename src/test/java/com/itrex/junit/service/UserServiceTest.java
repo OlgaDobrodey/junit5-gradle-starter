@@ -9,7 +9,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 //@Tag("fast")
-@TestInstance(TestInstance.Lifecycle.PER_METHOD)
+@TestMethodOrder(MethodOrderer.MethodName.class)
 //@TestInstance(TestInstance.Lifecycle.PER_CLASS) -> beforeAll not static
 public class UserServiceTest {
 
@@ -32,36 +32,6 @@ public class UserServiceTest {
     void prepare() {
         System.out.println("Before each: " + this);
         service = new UserService();
-    }
-
-    @Test
-    void usersEmptyIfNoUserAdded() {
-        System.out.println("Test1: " + this);
-
-        List<User> all = service.getAll();
-        assertTrue(all.isEmpty());
-    }
-
-    @Test
-    void users_empty_if_no_user_added() {
-        System.out.println("Test1.1: " + this);
-        List<User> all = service.getAll();
-        assertTrue(all.isEmpty(), "ERROR"); //message if ERROR
-        assertAll("Assert All",
-                () -> assertTrue(true),
-                () -> assertFalse(false)
-        );
-    }
-
-    @Test
-    void userSizeIfUserAdded() {
-        System.out.println("Test2: " + this);
-
-        service.add(IVAN);
-        service.add(PETR);
-
-        List<User> all = service.getAll();
-        assertEquals(2, all.size());
     }
 
     @Test
@@ -94,6 +64,40 @@ public class UserServiceTest {
     @AfterEach
     void deleteData() {
         System.out.println("After each: " + this);
+    }
+
+    @Nested
+    class UserTest{
+
+        @Test
+        void usersEmptyIfNoUserAdded() {
+            System.out.println("Test1: " + this);
+
+            List<User> all = service.getAll();
+            assertTrue(all.isEmpty());
+        }
+
+        @Test
+        void users_empty_if_no_user_added() {
+            System.out.println("Test1.1: " + this);
+            List<User> all = service.getAll();
+            assertTrue(all.isEmpty(), "ERROR"); //message if ERROR
+            assertAll("Assert All",
+                    () -> assertTrue(true),
+                    () -> assertFalse(false)
+            );
+        }
+
+        @Test
+        void userSizeIfUserAdded() {
+            System.out.println("Test2: " + this);
+
+            service.add(IVAN);
+            service.add(PETR);
+
+            List<User> all = service.getAll();
+            assertEquals(2, all.size());
+        }
     }
 
 }
