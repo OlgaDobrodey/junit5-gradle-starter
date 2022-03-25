@@ -1,4 +1,4 @@
-package com.itrex.junit.service;
+package com.itrex.junit.service.user;
 
 import com.itrex.junit.dto.User;
 import org.junit.jupiter.api.*;
@@ -35,7 +35,8 @@ public class UserServiceTest {
     }
 
     @Test
-    @Tag("login")//https://www.baeldung.com/junit-filtering-tests
+    @Tag("login")
+//https://www.baeldung.com/junit-filtering-tests
     void loginSuccessIfUserExist() {
         service.add(IVAN);
         Optional<User> userIfPresent = service.login(IVAN.getUsername(), IVAN.getPassword());
@@ -45,7 +46,8 @@ public class UserServiceTest {
     }
 
     @Test
-    @Tag("login") // start from command line
+    @Tag("login")
+        // start from command line
     void loginFailIfPasswordIsNotCorrect() {
         service.add(IVAN);
         Optional<User> userIfPresent = service.login(IVAN.getUsername(), "124");
@@ -67,7 +69,7 @@ public class UserServiceTest {
     }
 
     @Nested
-    class UserTest{
+    class UserTest {
 
         @Test
         void usersEmptyIfNoUserAdded() {

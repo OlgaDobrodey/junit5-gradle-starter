@@ -1,7 +1,7 @@
-package com.itrex.junit.service.dependencyInjection;
+package com.itrex.junit.service.user.dependencyInjection;
 
 import com.itrex.junit.dto.User;
-import com.itrex.junit.service.UserService;
+import com.itrex.junit.service.user.UserService;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 

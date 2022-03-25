@@ -1,4 +1,4 @@
-package com.itrex.junit.service;
+package com.itrex.junit.service.user;
 
 import com.itrex.junit.dto.User;
 

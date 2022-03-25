@@ -1,6 +1,6 @@
-package com.itrex.junit.service.dependencyInjection;
+package com.itrex.junit.service.user.dependencyInjection;
 
-import com.itrex.junit.service.UserService;
+import com.itrex.junit.service.user.UserService;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;

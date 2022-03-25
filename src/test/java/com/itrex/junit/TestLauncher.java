@@ -1,7 +1,7 @@
 package com.itrex.junit;
 
-import com.itrex.junit.service.UserServiceExceptionsTest;
-import com.itrex.junit.service.UserServiceTest;
+import com.itrex.junit.service.user.UserServiceExceptionsTest;
+import com.itrex.junit.service.user.UserServiceTest;
 import org.junit.platform.engine.discovery.DiscoverySelectors;
 import org.junit.platform.launcher.Launcher;
 import org.junit.platform.launcher.LauncherDiscoveryRequest;
