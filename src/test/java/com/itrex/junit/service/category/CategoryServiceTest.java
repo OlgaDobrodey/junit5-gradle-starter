@@ -5,9 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.NullSource;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.params.provider.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -50,13 +48,7 @@ class CategoryServiceTest {
         List<Category> categories = categoryService.findAll();
 
         //then
-        assertAll("Assert for find all",
-                () -> assertEquals(2,categories.size()),
-                () -> assertEquals(categories.get(0),Constants.TECHNIQUE),
-                () -> assertEquals(categories.get(1),Constants.SCIENCE),
-                () -> assertTrue(categories.contains(Constants.TECHNIQUE)),
-                () -> assertTrue(categories.contains(Constants.SCIENCE))
-        );
+        assertAll("Assert for find all", () -> assertEquals(2, categories.size()), () -> assertEquals(categories.get(0), Constants.TECHNIQUE), () -> assertEquals(categories.get(1), Constants.SCIENCE), () -> assertTrue(categories.contains(Constants.TECHNIQUE)), () -> assertTrue(categories.contains(Constants.SCIENCE)));
 
     }
 
@@ -84,8 +76,11 @@ class CategoryServiceTest {
     @Test
     void addAll_returnCategoriesList() {
         //given && when
+        categoryService.addAll(Constants.TECHNIQUE, Constants.SCIENCE);
+        List<Category> categories = categoryService.findAll();
 
         //then
+        assertAll("Assert for find all", () -> assertEquals(2, categories.size()), () -> assertEquals(categories.get(0), Constants.TECHNIQUE), () -> assertEquals(categories.get(1), Constants.SCIENCE), () -> assertTrue(categories.contains(Constants.TECHNIQUE)), () -> assertTrue(categories.contains(Constants.SCIENCE)));
     }
 
     @ParameterizedTest
@@ -101,7 +96,33 @@ class CategoryServiceTest {
         assertEquals(expected, actual);
     }
 
-    @Test
-    void addAllProductsForCategory() {
+    @ParameterizedTest
+    @CsvFileSource(resources = "/name-category.csv", delimiter = ';', numLinesToSkip = 1)
+    void findByName_returnCategory(String name, String toString) {
+        //given
+        categoryService.addAll(Constants.TECHNIQUE, Constants.SCIENCE);
+
+        //when
+        Optional<Category> actual = categoryService.findByName(name);
+
+        //then
+        assertEquals(toString, actual.toString());
     }
+
+    @ParameterizedTest()
+    @CsvSource(
+            value = {"technique;Optional[Category(id=1, name=technique, products=[TV, microPhone], information=test about)]",
+                    "science;Optional[Category(id=2, name=science, products=[mathematics, physics], information=test about)]"},
+            delimiter = ';')
+    void findByName_returnCategory_csv(String name, String toString) {
+        //given
+        categoryService.addAll(Constants.TECHNIQUE, Constants.SCIENCE);
+
+        //when
+        Optional<Category> actual = categoryService.findByName(name);
+
+        //then
+        assertEquals(toString, actual.toString());
+    }
+
 }

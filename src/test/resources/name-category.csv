@@ -1,0 +1,4 @@
+    CATEGORY;TO_STRING
+    technique;Optional[Category(id=1, name=technique, products=[TV, microPhone], information=test about)]
+    science;Optional[Category(id=2, name=science, products=[mathematics, physics], information=test about)]
+

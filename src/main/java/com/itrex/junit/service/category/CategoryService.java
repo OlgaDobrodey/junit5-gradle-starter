@@ -31,8 +31,4 @@ public class CategoryService {
                 .filter(category -> category.getName().equals(name))
                 .findFirst();
     }
-
-    public boolean addAllProductsForCategory(Category category, String... products) {
-        return true;
-    }
 }
