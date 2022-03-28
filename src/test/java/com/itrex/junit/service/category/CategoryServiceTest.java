@@ -3,14 +3,17 @@ package com.itrex.junit.service.category;
 import com.itrex.junit.dto.Category;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.*;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.RepeatedTest.LONG_DISPLAY_NAME;
 import static org.junit.jupiter.params.ParameterizedTest.ARGUMENTS_PLACEHOLDER;
 
 /*
@@ -30,6 +33,8 @@ class CategoryServiceTest {
     }
 
     @Test
+   // @Disabled("flaky, need to see")// skip test
+    @RepeatedTest(value = 5, name = LONG_DISPLAY_NAME)//repeat 5 times
     void findAll_returnListOfCategoryIsEmpty() {
         //given && when
         List<Category> categories = categoryService.findAll();
@@ -37,6 +42,16 @@ class CategoryServiceTest {
         //then
         assertTrue(categories.isEmpty());
 
+    }
+
+    @Test
+    void findAll_returnListOfCategory_timeout(){
+
+        List<Category> categories = assertTimeout(Duration.ofMillis(200l),
+                () -> categoryService.findAll());
+
+        assertTimeoutPreemptively(Duration.ofMillis(200l),
+                () -> categoryService.findAll()); //diferent thread not good 
     }
 
     @Test

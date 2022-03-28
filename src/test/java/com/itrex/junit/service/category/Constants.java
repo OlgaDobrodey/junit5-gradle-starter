@@ -6,9 +6,9 @@ import java.util.List;
 
 public class Constants {
 
-    protected static final Category TECHNIQUE =
+    public static final Category TECHNIQUE =
             Category.of(1,"technique", List.of("TV","microPhone"),"test about");
-    protected static final Category SCIENCE =
+    public static final Category SCIENCE =
             Category.of(2,"science", List.of("mathematics","physics"),"test about");
 
 
