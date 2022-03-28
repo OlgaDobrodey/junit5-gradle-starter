@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.params.ParameterizedTest.ARGUMENTS_PLACEHOLDER;
 
 /*
 used annotations:
@@ -109,11 +110,8 @@ class CategoryServiceTest {
         assertEquals(toString, actual.toString());
     }
 
-    @ParameterizedTest()
-    @CsvSource(
-            value = {"technique;Optional[Category(id=1, name=technique, products=[TV, microPhone], information=test about)]",
-                    "science;Optional[Category(id=2, name=science, products=[mathematics, physics], information=test about)]"},
-            delimiter = ';')
+    @ParameterizedTest(name = ARGUMENTS_PLACEHOLDER)
+    @CsvSource(value = {"technique;Optional[Category(id=1, name=technique, products=[TV, microPhone], information=test about)]", "science;Optional[Category(id=2, name=science, products=[mathematics, physics], information=test about)]"}, delimiter = ';')
     void findByName_returnCategory_csv(String name, String toString) {
         //given
         categoryService.addAll(Constants.TECHNIQUE, Constants.SCIENCE);
