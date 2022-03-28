@@ -20,7 +20,6 @@ used annotations:
 - @NullAndEmptySource
  */
 
-@DisplayName("Category test")
 class CategoryServiceTest {
 
     private CategoryService categoryService;
@@ -41,6 +40,7 @@ class CategoryServiceTest {
     }
 
     @Test
+    @DisplayName("findAll")
     void findAll_returnListOfCategory() {
         //given
         categoryService.addAll(Constants.TECHNIQUE, Constants.SCIENCE);
@@ -110,7 +110,7 @@ class CategoryServiceTest {
         assertEquals(toString, actual.toString());
     }
 
-    @ParameterizedTest(name = ARGUMENTS_PLACEHOLDER)
+    @ParameterizedTest(name = ARGUMENTS_PLACEHOLDER+" test")
     @CsvSource(value = {"technique;Optional[Category(id=1, name=technique, products=[TV, microPhone], information=test about)]", "science;Optional[Category(id=2, name=science, products=[mathematics, physics], information=test about)]"}, delimiter = ';')
     void findByName_returnCategory_csv(String name, String toString) {
         //given
