@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class UserServiceTest {
 
     private static final User IVAN = User.of(1, "Ivan", "123");
-    private static final User PETR = User.of(2, "Petr", "111");
 
     private UserService service;
     private UserDao userDao;
