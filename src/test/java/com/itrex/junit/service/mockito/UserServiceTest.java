@@ -45,9 +45,9 @@ public class UserServiceTest {
                 .thenReturn(true)
                 .thenReturn(false);
         // when
-        boolean deleteResult = service.delete(IVAN.getId());
-        System.out.println(service.delete(IVAN.getId()));
-        System.out.println(service.delete(IVAN.getId()));
+        boolean deleteResult = service.delete(IVAN.getId()); //true
+        System.out.println(service.delete(IVAN.getId())); //false
+        System.out.println(service.delete(IVAN.getId())); //false
 
         //then
         assertTrue(deleteResult);
