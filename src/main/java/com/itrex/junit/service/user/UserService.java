@@ -17,7 +17,8 @@ public class UserService {
     }
 
     public boolean delete(Integer userId) {     //for check package mockito
-        return userDao.delete(userId);
+      Integer userIdLocal = 25;
+        return userDao.delete(userIdLocal);
     }
 
     public List<User> getAll() {

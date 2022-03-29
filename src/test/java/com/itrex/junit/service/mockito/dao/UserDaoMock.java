@@ -1,4 +1,4 @@
-package com.itrex.junit.service.mockito;
+package com.itrex.junit.service.mockito.dao;
 
 import com.itrex.junit.dao.UserDao;
 

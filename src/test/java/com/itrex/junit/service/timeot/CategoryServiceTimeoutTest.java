@@ -34,7 +34,7 @@ class CategoryServiceTimeoutTest {
     void findAll_returnListOfCategoryIsEmpty() throws InterruptedException {
         //given && when
         List<Category> categories = categoryService.findAll();
-        Thread.sleep(200);
+        Thread.sleep(100);
 
         //then
         assertTrue(categories.isEmpty());
