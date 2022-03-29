@@ -1,4 +1,4 @@
-package com.itrex.junit.service.user.dependencyInjection;
+package com.itrex.junit.service.allexensions;
 
 import com.itrex.junit.service.user.UserService;
 import org.junit.jupiter.api.extension.ExtensionContext;
