@@ -1,4 +1,4 @@
-package com.itrex.junit.service.mockito;
+package com.itrex.junit.service.bbdmokito;
 
 import com.itrex.junit.dao.UserDao;
 import com.itrex.junit.dto.User;
@@ -37,33 +37,26 @@ public class UserServiceMoskitoSimpleTest {
     @BeforeEach
     void prepare() {
         System.out.println("Before each: " + this);
-        Mockito.when(userDao.delete(any())).thenReturn(true);
     }
 
     @Test
     void shouldDeleteExistUserTest() {
-        //given
         service.add(IVAN);
+        BDDMockito.given(userDao.delete(any())).willReturn(true);
+//        BDDMockito.willReturn(true).given(userDao).delete(IVAN.getId());
 
-        // when
         boolean deleteResult = service.delete(IVAN.getId()); //true
 
         //then
         assertTrue(deleteResult);
         assertThat(deleteResult).isTrue();
-
-        Mockito.verify(userDao, Mockito.atLeast(1)).delete(argumentCaptor.capture());
-        Mockito.verify(userDao, Mockito.atMost(4)).delete(argumentCaptor.capture());
-//        Mockito.verifyNoInteractions(spyUserDao);
-
-        assertThat(argumentCaptor.getValue()).isEqualTo(25);
     }
 
     @Test
-    void throwExceptionIfDatabaseIsNot(){
+    void throwExceptionIfDatabaseIsNot() {
         Mockito.doThrow(RuntimeException.class).when(userDao).delete(any());
 
-        assertThrows(RuntimeException.class,()->service.delete(IVAN.getId()));
+        assertThrows(RuntimeException.class, () -> service.delete(IVAN.getId()));
     }
 
 
