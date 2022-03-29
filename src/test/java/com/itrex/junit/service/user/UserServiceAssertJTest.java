@@ -31,7 +31,7 @@ public class UserServiceAssertJTest {
     @BeforeEach
     void prepare() {
         System.out.println("Before each: " + this);
-        service = new UserService();
+        service = new UserService(null);
     }
 
     @Test

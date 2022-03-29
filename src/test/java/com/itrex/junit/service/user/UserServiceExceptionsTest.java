@@ -21,7 +21,7 @@ public class UserServiceExceptionsTest {
     @BeforeEach
     void prepare() {
         System.out.println("Before each: " + this);
-        service = new UserService();
+        service = new UserService(null);
     }
 
     @Test

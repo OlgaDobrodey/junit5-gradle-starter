@@ -18,6 +18,6 @@ public class UserServiceParamResolver implements ParameterResolver {
        //do new Object for each method
         var store = extensionContext.getStore(ExtensionContext.Namespace.create(extensionContext.getTestMethod()));
        //return Map<key:class,value:new Object>
-        return store.getOrComputeIfAbsent(UserService.class, it -> new UserService());
+        return store.getOrComputeIfAbsent(UserService.class, it -> new UserService(null));
     }
 }
